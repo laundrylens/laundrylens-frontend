@@ -5,7 +5,7 @@ import App from './App'
 describe('App', () => {
   it('renders with router and shows home page', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('홈')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/AI가 읽어드립니다/)
   })
 
   it('renders header with LaundryLens logo', () => {
