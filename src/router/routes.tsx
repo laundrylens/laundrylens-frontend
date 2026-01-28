@@ -1,6 +1,18 @@
 import type { RouteObject } from 'react-router-dom'
 import { Layout } from '../components/layout'
-import { Home, Symbols, Analyze, Guide, Login, AuthCallback, NotFound, Pricing } from '../pages'
+import {
+  Home,
+  Symbols,
+  Analyze,
+  Guide,
+  Login,
+  AuthCallback,
+  NotFound,
+  Pricing,
+  Payment,
+  PaymentSuccess,
+  PaymentFail,
+} from '../pages'
 
 export const routes: RouteObject[] = [
   {
@@ -25,6 +37,18 @@ export const routes: RouteObject[] = [
       {
         path: '/pricing',
         element: <Pricing />,
+      },
+      {
+        path: '/payment',
+        element: <Payment />,
+      },
+      {
+        path: '/payment/success',
+        element: <PaymentSuccess />,
+      },
+      {
+        path: '/payment/fail',
+        element: <PaymentFail />,
       },
       {
         path: '/login',
