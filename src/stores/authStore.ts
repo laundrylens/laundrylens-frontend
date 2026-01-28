@@ -1,12 +1,20 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+export interface Subscription {
+  planId: 'free' | 'basic' | 'premium'
+  expiresAt?: string
+  analysisCount: number
+  analysisUsed: number
+}
+
 export interface User {
   id: string
   email: string
   nickname: string
   profileImage?: string
   provider: 'kakao' | 'google'
+  subscription?: Subscription
 }
 
 interface AuthState {
