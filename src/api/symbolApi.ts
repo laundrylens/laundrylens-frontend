@@ -7,6 +7,7 @@ import { env } from '../config'
 interface GetSymbolsParams {
   country?: CountryCode
   category?: CategoryCode[]
+  search?: string
 }
 
 interface SymbolsResponse {
@@ -44,6 +45,16 @@ export const symbolApi = {
     if (params?.category && params.category.length > 0) {
       filteredSymbols = filteredSymbols.filter((s) =>
         params.category!.includes(s.category)
+      )
+    }
+
+    if (params?.search && params.search.trim()) {
+      const searchLower = params.search.toLowerCase().trim()
+      filteredSymbols = filteredSymbols.filter(
+        (s) =>
+          s.name.toLowerCase().includes(searchLower) ||
+          s.description.toLowerCase().includes(searchLower) ||
+          s.code.toLowerCase().includes(searchLower)
       )
     }
 
