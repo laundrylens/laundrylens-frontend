@@ -69,7 +69,7 @@ describe('Header', () => {
 
     renderWithRouter(<Header />)
     expect(screen.getByText('테스트유저님')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '로그아웃' })).toBeInTheDocument()
+    expect(screen.getAllByRole('button', { name: '로그아웃' }).length).toBeGreaterThanOrEqual(1)
     expect(screen.queryByRole('button', { name: '로그인' })).not.toBeInTheDocument()
   })
 
@@ -82,5 +82,64 @@ describe('Header', () => {
   it('has proper navigation landmark', () => {
     renderWithRouter(<Header />)
     expect(screen.getByRole('navigation', { name: '메인 네비게이션' })).toBeInTheDocument()
+  })
+
+  describe('Mobile Menu', () => {
+    it('renders mobile menu button', () => {
+      renderWithRouter(<Header />)
+      expect(screen.getByLabelText('메뉴 열기')).toBeInTheDocument()
+    })
+
+    it('opens mobile menu when button is clicked', () => {
+      renderWithRouter(<Header />)
+      const menuButton = screen.getByLabelText('메뉴 열기')
+      fireEvent.click(menuButton)
+
+      // Mobile menu should be visible with nav items
+      const navItems = screen.getAllByText('기호 사전')
+      expect(navItems.length).toBeGreaterThanOrEqual(1)
+    })
+
+    it('closes mobile menu when close button is clicked', () => {
+      renderWithRouter(<Header />)
+      const menuButton = screen.getByLabelText('메뉴 열기')
+      fireEvent.click(menuButton)
+
+      // Now click close button
+      const closeButton = screen.getByLabelText('메뉴 닫기')
+      fireEvent.click(closeButton)
+
+      // Menu should close - button label changes back
+      expect(screen.getByLabelText('메뉴 열기')).toBeInTheDocument()
+    })
+
+    it('shows login button in mobile menu when not logged in', () => {
+      renderWithRouter(<Header />)
+      const menuButton = screen.getByLabelText('메뉴 열기')
+      fireEvent.click(menuButton)
+
+      const loginButtons = screen.getAllByRole('button', { name: '로그인' })
+      expect(loginButtons.length).toBeGreaterThanOrEqual(1)
+    })
+
+    it('shows mypage link in mobile menu when logged in', () => {
+      useAuthStore.setState({
+        user: {
+          id: '1',
+          email: 'test@example.com',
+          nickname: '테스트유저',
+          provider: 'kakao',
+        },
+        accessToken: 'test-token',
+        refreshToken: 'test-refresh',
+        isAuthenticated: true,
+      })
+
+      renderWithRouter(<Header />)
+      const menuButton = screen.getByLabelText('메뉴 열기')
+      fireEvent.click(menuButton)
+
+      expect(screen.getByText('테스트유저님의 마이페이지')).toBeInTheDocument()
+    })
   })
 })
