@@ -12,6 +12,7 @@ import {
   Payment,
   PaymentSuccess,
   PaymentFail,
+  MyPage,
 } from '../pages'
 
 export const routes: RouteObject[] = [
@@ -49,6 +50,10 @@ export const routes: RouteObject[] = [
       {
         path: '/payment/fail',
         element: <PaymentFail />,
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
       },
       {
         path: '/login',
