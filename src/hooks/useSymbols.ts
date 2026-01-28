@@ -5,18 +5,20 @@ import type { CountryCode, CategoryCode } from '../components/symbols'
 interface UseSymbolsOptions {
   country?: CountryCode
   categories?: CategoryCode[]
+  search?: string
   enabled?: boolean
 }
 
 export function useSymbols(options: UseSymbolsOptions = {}) {
-  const { country, categories, enabled = true } = options
+  const { country, categories, search, enabled = true } = options
 
   return useQuery({
-    queryKey: ['symbols', { country, categories }],
+    queryKey: ['symbols', { country, categories, search }],
     queryFn: () =>
       symbolApi.getSymbols({
         country,
         category: categories,
+        search,
       }),
     enabled,
     staleTime: 5 * 60 * 1000, // 5 minutes
