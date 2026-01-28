@@ -5,6 +5,9 @@ import {
   Symbols,
   Analyze,
   Guide,
+  MaterialDetail,
+  AnalysisHistory,
+  AnalysisHistoryDetail,
   Login,
   AuthCallback,
   NotFound,
@@ -36,6 +39,10 @@ export const routes: RouteObject[] = [
         element: <Guide />,
       },
       {
+        path: '/guide/:code',
+        element: <MaterialDetail />,
+      },
+      {
         path: '/pricing',
         element: <Pricing />,
       },
@@ -54,6 +61,14 @@ export const routes: RouteObject[] = [
       {
         path: '/mypage',
         element: <MyPage />,
+      },
+      {
+        path: '/history',
+        element: <AnalysisHistory />,
+      },
+      {
+        path: '/history/:id',
+        element: <AnalysisHistoryDetail />,
       },
       {
         path: '/login',
