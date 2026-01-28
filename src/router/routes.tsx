@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom'
 import { Layout } from '../components/layout'
-import { Home, Symbols, Analyze, Guide, NotFound } from '../pages'
+import { Home, Symbols, Analyze, Guide, Login, NotFound } from '../pages'
 
 export const routes: RouteObject[] = [
   {
@@ -21,6 +21,10 @@ export const routes: RouteObject[] = [
       {
         path: '/guide',
         element: <Guide />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       },
       {
         path: '*',
