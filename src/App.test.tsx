@@ -3,13 +3,23 @@ import { describe, it, expect } from 'vitest'
 import App from './App'
 
 describe('App', () => {
-  it('renders LaundryLens title', () => {
+  it('renders with router and shows home page', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('LaundryLens')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('홈')
   })
 
-  it('renders description text', () => {
+  it('renders header with LaundryLens logo', () => {
     render(<App />)
-    expect(screen.getByText('세탁기호를 쉽게 이해하세요')).toBeInTheDocument()
+    expect(screen.getByLabelText('LaundryLens 홈')).toBeInTheDocument()
+  })
+
+  it('renders navigation', () => {
+    render(<App />)
+    expect(screen.getByRole('navigation', { name: '메인 네비게이션' })).toBeInTheDocument()
+  })
+
+  it('renders footer', () => {
+    render(<App />)
+    expect(screen.getByRole('contentinfo', { name: '사이트 푸터' })).toBeInTheDocument()
   })
 })
